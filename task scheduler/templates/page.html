@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<style>
+    body {
+      background-color: rgb(255, 255, 255);
+      background-image: url("bgimage.gif");
+    }
+    
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+<h1>SCHEDULE YOUR TASKS</h1>
+{% if login %}
+
+    <form class="child" action="/login" method='POST' enctype="multipart/form-data">
+    <input class = "child" type="text" name="user" placeholder="username">
+    <input type="submit" value="login">
+    
+    </form>
+
+
+{% else %}
+
+
+
+
+
+    <form action="/schedule" method='POST' enctype="multipart/form-data">
+    <input type="text" name = "task" placeholder="task" required>
+    <input type="date" name = "datee" placeholder="due date(optional)" >
+    <input type="submit" value = "add">
+
+    </form>
+
+    <form action="/logout" method='POST' enctype="text/plain">
+    <input type="submit" value="logout">
+    
+    </form>
+
+
+
+    <table>
+        <tr>
+            <th>task</th>
+            <th>date created</th>
+            <th>due date</th>
+            <th>actions</th>
+        </tr>
+        {% for x in content%}
+        <tr>
+
+            <td>{{x.task}}</td>
+            <td>{{x.date}}</td>
+            <td>{{x.enddate}}</td>
+            <td><form><a href="/delete/{{x.id}}" >delete</a></form></td>
+        </tr>
+        {% endfor %}
+
+
+    </table>
+{% endif %}
+{% endblock %}
